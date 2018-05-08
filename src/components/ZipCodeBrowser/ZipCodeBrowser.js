@@ -53,6 +53,7 @@ ZipCodeBrowser.propTypes = {
 // CONFIGURE REACT REDUX
 
 const mapStateToProps = state => {
+    console.log('-----',state);
     const { fetching, fetched, failed, zipCodes } = state.zipCodes;
 
     return { fetching, fetched, failed, zipCodes };

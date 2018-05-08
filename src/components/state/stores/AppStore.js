@@ -3,7 +3,7 @@
 import { createStore, applyMiddleware } from 'redux';
 
 // IMPORT MIDDLEWARE
-
+import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 
@@ -12,8 +12,9 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { AppReducer } from '../reducers/AppReducer';
 
 
+
 // CONFIGURE STORE
 
 export const createAppStore = () => {
-    return createStore(AppReducer, applyMiddleware(thunk, promiseMiddleware()));
+    return createStore(AppReducer, applyMiddleware(thunk,logger, promiseMiddleware()));
 };
