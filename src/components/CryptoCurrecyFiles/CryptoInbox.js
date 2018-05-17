@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/components/_cryptoApp.scss';
-import { images } from '../../utils/coinIcons';
+// import { images } from '../../utils/coinIcons';
 class CryptoInbox extends Component {
 	constructor(props, context) {
 		super(props, context);
