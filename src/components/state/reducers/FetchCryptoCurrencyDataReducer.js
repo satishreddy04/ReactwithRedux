@@ -1,6 +1,7 @@
 import { FETCH_CRYPTOCURRENCY_DATA, 
     FETCH_CRYPTOCURRENCY_DATA_FAIL, 
-    FETCH_CRYPTOCURRENCY_DATA_SUCESS } 
+    FETCH_CRYPTOCURRENCY_DATA_SUCESS,
+    FETCH_DATA_BY_ID } 
     from '../../../utils/Constants'
 
 
@@ -10,7 +11,8 @@ const initialState = {
     cryptoData: [],
     Fetching: false,
     fetched: false,
-    failed: false
+    failed: false,
+    Detailpage:[]
 };
 
 
@@ -24,7 +26,9 @@ export const FetchcryptoCurrencyDataReducer = (state = initialState, action) => 
                 cryptoData:[],
     Fetching: true,
     fetched: false,
-    failed: false
+    failed: false,
+    Detailpage:[]
+
             };
         case FETCH_CRYPTOCURRENCY_DATA_SUCESS:
             return {
@@ -32,7 +36,8 @@ export const FetchcryptoCurrencyDataReducer = (state = initialState, action) => 
                 cryptoData: action.payload,
     Fetching: false,
     fetched: true,
-    failed: false
+    failed: false,
+    Detailpage:[]
             };
         case  FETCH_CRYPTOCURRENCY_DATA_FAIL:
             return {
@@ -40,8 +45,16 @@ export const FetchcryptoCurrencyDataReducer = (state = initialState, action) => 
                 cryptoData:action.payload,
     Fetching: false,
     fetched: false,
-    failed: true
+    failed: true,
+    Detailpage:[]
             };
+            case FETCH_DATA_BY_ID :
+            let selectedObj = state.cryptoData.find(o => o.id === action.payload);
+            return {
+                ...state,
+                Detailpage:[selectedObj]
+
+            }
         default:
             return state;
     }

@@ -8,7 +8,7 @@ import '../../styles/components/_cryptoApp.scss';
 // IMPORT PROJECT REFERENCES
 import CryptoDetails from '../CryptoCurrecyFiles/cryptoDetails';
 import CryptoInbox from '../CryptoCurrecyFiles/CryptoInbox';
-import { fetchCryptoCurrencyData } from '../../components/state/actions/CryptoAppActions';
+import { fetchCryptoCurrencyData,fetchDataByID } from '../../components/state/actions/CryptoAppActions';
 
 import { fetchZipCodes } from '../state/actions/ZipCodeActions';
 // import { LoadingIndicator } from '../shared/LoadingIndicator/LoadingIndicator';
@@ -27,9 +27,12 @@ const LoadingIndicator = props => (
 class CryptoMainContainer extends Component {
 	constructor(props) {
 		super(props);
-		console.log(this.props.cryptodata.fetched);
 	}
+getIdFromChild = (dataFromCryptoInbox) =>{
+				 console.log(dataFromCryptoInbox);
 
+				  this.props.fetchDataByID(dataFromCryptoInbox);
+	}
 	componentDidMount() {
 		this.props.fetchCryptoCurrencyData();
 	}
@@ -40,24 +43,17 @@ class CryptoMainContainer extends Component {
 				<div className="row">
 					<div className="col-sm-5 col-md-4 inbox">
 						<LoadingIndicator busy={this.props.cryptodata.Fetching} />
-						{this.props.cryptodata.fetched && <CryptoInbox crypto={this.props.cryptodata.cryptoData} />}
+						{this.props.cryptodata.fetched && <CryptoInbox crypto={this.props.cryptodata.cryptoData}
+						getId={this.getIdFromChild} />}
 					</div>
 					<div className="col-sm-7 col-md-8 inbox-details">
-						<CryptoDetails />
-						{this.props.fetched}
+						<CryptoDetails crypto={this.props.cryptodata.Detailpage} />
 					</div>
 				</div>
 			</div>
 		);
 	}
-}
-// CryptoMainContainer.propTypes = {
-//     fetchCryptoCurrencyData: PropTypes.func.isRequired,
-//     isFetching: PropTypes.bool.isRequired,
-//     hasError: PropTypes.bool.isRequired,
-//     errorMessae: PropTypes.bool,
-//     cryptoData: PropTypes.array.isRequired
-// };
+};
 
 CryptoMainContainer.propTypes = {
 	// fetchZipCodes: PropTypes.func.isRequired,
@@ -67,11 +63,6 @@ CryptoMainContainer.propTypes = {
 	cryptoData: PropTypes.array.isRequired
 };
 
-// function mapStateToProps(state){
-//     return {
-//         crypto:state.crypto
-//     }
-// }
 
 // CONFIGURE REACT REDUX
 const mapStateToProps = state => {
@@ -80,14 +71,7 @@ const mapStateToProps = state => {
 		cryptodata: state.crytpodata
 	};
 };
-
-// const mapStateToProps = state => {
-//      const { Fetching, fetched, failed, cryptoData } = state.cryptodata;
-
-//      return { Fetching, fetched, failed, cryptoData };
-// };
-
-const mapDispatchToProps = dispatch => bindActionCreators({ fetchCryptoCurrencyData }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchCryptoCurrencyData,fetchDataByID }, dispatch);
 
 const hoc = connect(mapStateToProps, mapDispatchToProps)(CryptoMainContainer);
 

@@ -1,6 +1,6 @@
 import {CryptoApiBaseURL} from '../../../utils/Constants';
 import axios from 'axios';
-import { FETCH_CRYPTOCURRENCY_DATA, FETCH_CRYPTOCURRENCY_DATA_FAIL, FETCH_CRYPTOCURRENCY_DATA_SUCESS} from '../../../utils/Constants'
+import { FETCH_CRYPTOCURRENCY_DATA, FETCH_CRYPTOCURRENCY_DATA_FAIL, FETCH_CRYPTOCURRENCY_DATA_SUCESS,FETCH_DATA_BY_ID} from '../../../utils/Constants'
 
 export default function fetchCryptoCurrencyData(){
     return dispatch => {
@@ -17,6 +17,13 @@ export default function fetchCryptoCurrencyData(){
     }
 }
 
+export const  fetchDataByID = Id => ({
+    type:FETCH_DATA_BY_ID,
+    payload:Id
+})
+  
+
 
 
 export { fetchCryptoCurrencyData as fetchCryptoCurrencyData };
+// export {fetchDataByID as fetchDataByID };
